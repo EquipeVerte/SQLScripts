@@ -41,12 +41,12 @@ CREATE TABLE [c].[Cinema] (
   [CinemaID]        int identity(1,1) PRIMARY KEY,
   [Nom]             varchar(100) NOT NULL,
   [Adresse]         varchar(200) NOT NULL,
-  [IsActive]        bit NOT NULL,
+  [EnExploitation]        bit NOT NULL,
   [ResponsableID]   int NOT NULL,
-  [ProgrammerLogin] varchar(100) NULL,
+  [Programmateur] varchar(100) NULL,
   CONSTRAINT FK_Cinema_Responsable FOREIGN KEY  ([ResponsableID])
   REFERENCES [c].[Responsable] ([ResponsableID]),
-  CONSTRAINT FK_Cinema_User FOREIGN KEY ([ProgrammerLogin])
+  CONSTRAINT FK_Cinema_User FOREIGN KEY ([Programmateur])
   REFERENCES [u].[User] ([Login])
 );
 
@@ -55,7 +55,7 @@ CREATE TABLE [c].[Salle] (
   [Nom]       varchar(100) NOT NULL,
   [TypeEcran] varchar(100) NULL,
   [SystemSon] varchar(100) NULL,
-  [IsActive]  bit NOT NULL,
+  [EnExploitation]  bit NOT NULL,
   [CinemaID]  int NOT NULL,
   CONSTRAINT  FK_Salle_Cinema FOREIGN KEY ([CinemaID])
   REFERENCES  [c].[Cinema] ([CinemaID])
