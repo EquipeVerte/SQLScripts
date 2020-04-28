@@ -44,7 +44,7 @@ CREATE TABLE [dbo].[Salle] (
   REFERENCES  [c].[Cinema] ([CinemaID])
 );
 
-CREATE TABLE [dbo].[Oeuvre] (
+CREATE TABLE [dbo].[Contenu] (
   [Titre]       nvarchar(200) PRIMARY KEY,
   [Description] nvarchar(2000) NOT NULL,
   [Annee]       int NOT NULL,
@@ -67,33 +67,33 @@ CREATE [dbo].[Genre] (
   [Nom] nvarchar(100) PRIMARY KEY
 );
 
-CREATE [dbo].[OeuvreActeur] (
-  [OeuvreTitre]   nvarchar(200) NOT NULL,
+CREATE [dbo].[ContenuActeur] (
+  [ContenuTitre]   nvarchar(200) NOT NULL,
   [ActeurNom]  nvarchar(200) NOT NULL,
-  CONSTRAINT  [PK_OeuvreActeur] PRIMARY KEY ([OeuvreTitre], [ActeurNom]),
-  CONSTRAINT  [FK_OeuvreActeur_Oeuvre] FOREIGN KEY ([OeuvreTitre])
-  REFERENCES  [co].[Oeuvre] ([Titre]),
-  CONSTRAINT  [FK_OeuvreActeur_Acteur] FOREIGN KEY ([ActeurNom])
+  CONSTRAINT  [PK_ContenuActeur] PRIMARY KEY ([ContenuTitre], [ActeurNom]),
+  CONSTRAINT  [FK_ContenuActeur_Contenu] FOREIGN KEY ([ContenuTitre])
+  REFERENCES  [co].[Contenu] ([Titre]),
+  CONSTRAINT  [FK_ContenuActeur_Acteur] FOREIGN KEY ([ActeurNom])
   REFERENCES  [co].[Acteur] ([Nom])
 );
 
-CREATE [dbo].[OeuvreDirecteur] (
-  [OeuvreTitre]   nvarchar(200) NOT NULL,
+CREATE [dbo].[ContenuDirecteur] (
+  [ContenuTitre]   nvarchar(200) NOT NULL,
   [DirecteurNom]  nvarchar(200) NOT NULL,
-  CONSTRAINT  [PK_OeuvreDirecteurr] PRIMARY KEY ([OeuvreTitre], [DirecteurNom]),
-  CONSTRAINT  [FK_OeuvreDirecteur_Oeuvre] FOREIGN KEY ([OeuvreTitre])
-  REFERENCES  [co].[Oeuvre] ([Titre]),
-  CONSTRAINT  [FK_OeuvreDirecteur_Directeur] FOREIGN KEY ([DirecteurNom])
+  CONSTRAINT  [PK_ContenuDirecteurr] PRIMARY KEY ([ContenuTitre], [DirecteurNom]),
+  CONSTRAINT  [FK_ContenuDirecteur_Contenu] FOREIGN KEY ([ContenuTitre])
+  REFERENCES  [co].[Contenu] ([Titre]),
+  CONSTRAINT  [FK_ContenuDirecteur_Directeur] FOREIGN KEY ([DirecteurNom])
   REFERENCES  [co].[Directeur] ([Nom])
 );
 
-CREATE [dbo].[OeuvreGenre] (
-  [OeuvreTitre]   nvarchar(200) NOT NULL,
+CREATE [dbo].[ContenuGenre] (
+  [ContenuTitre]   nvarchar(200) NOT NULL,
   [GenreNom]  nvarchar(200) NOT NULL,
-  CONSTRAINT  [PK_OeuvreGenre] PRIMARY KEY ([OeuvreTitre], [GenreNom]),
-  CONSTRAINT  [FK_OeuvreGenre_Oeuvre] FOREIGN KEY ([OeuvreTitre])
-  REFERENCES  [co].[Oeuvre] ([Titre]),
-  CONSTRAINT  [FK_OeuvreGenre_Genre] FOREIGN KEY ([GenreNom])
+  CONSTRAINT  [PK_ContenuGenre] PRIMARY KEY ([ContenuTitre], [GenreNom]),
+  CONSTRAINT  [FK_ContenuGenre_Contenu] FOREIGN KEY ([ContenuTitre])
+  REFERENCES  [co].[Contenu] ([Titre]),
+  CONSTRAINT  [FK_ContenuGenre_Genre] FOREIGN KEY ([GenreNom])
   REFERENCES  [co].[Genre] ([Nom])
 );
 
