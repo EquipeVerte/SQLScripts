@@ -3,25 +3,8 @@
 
 USE [CinemaProjectDB];
 
-GO;
 
-CREATE SCHEMA [u];
-
-GO;
-
-CREATE SCHEMA [c];
-
-GO;
-
-CREATE SCHEMA [co];
-
-GO:
-
-CREATE SCHEMA [p];
-
-GO;
-
-CREATE TABLE [u].[User] (
+CREATE TABLE [dbo].[User] (
   [Login]           nvarchar(20) PRIMARY KEY,
   [PasswordHash]    binary(24) NOT NULL,
   [Salt]            binary(24) NOT NULL,
@@ -30,14 +13,14 @@ CREATE TABLE [u].[User] (
   [Type]            char(5) NOT NULL
 );
 
-CREATE TABLE [c].[Responsable] (
+CREATE TABLE [dbo].[Responsable] (
   [ResponsableID] int identity(1,1) PRIMARY KEY,
   [Nom]           nvarchar(100) NOT NULL,
   [NumTel]        nvarchar(100) NOT NULL,
   [Email]         nvarchar(200) NOT NULL
 );
 
-CREATE TABLE [c].[Cinema] (
+CREATE TABLE [dbo].[Cinema] (
   [CinemaID]        int identity(1,1) PRIMARY KEY,
   [Nom]             nvarchar(100) NOT NULL,
   [Adresse]         nvarchar(200) NOT NULL,
@@ -50,7 +33,7 @@ CREATE TABLE [c].[Cinema] (
   REFERENCES [u].[User] ([Login])
 );
 
-CREATE TABLE [c].[Salle] (
+CREATE TABLE [dbo].[Salle] (
   [SalleID]   int identity(1,1) PRIMARY KEY,
   [Nom]       nvarchar(100) NOT NULL,
   [TypeEcran] nvarchar(100) NULL,
@@ -61,7 +44,7 @@ CREATE TABLE [c].[Salle] (
   REFERENCES  [c].[Cinema] ([CinemaID])
 );
 
-CREATE TABLE [co].[Oeuvre] (
+CREATE TABLE [dbo].[Oeuvre] (
   [Titre]       nvarchar(200) PRIMARY KEY,
   [Description] nvarchar(2000) NOT NULL,
   [Annee]       int NOT NULL,
@@ -72,19 +55,19 @@ CREATE TABLE [co].[Oeuvre] (
   [MetaScore]   int
 );
 
-CREATE [co].[Acteur] (
+CREATE [dbo].[Acteur] (
   [Nom] nvarchar(200) PRIMARY KEY
 );
 
-CREATE [co].[Directeur] (
+CREATE [dbo].[Directeur] (
   [Nom] nvarchar(200) PRIMARY KEY 
 );
 
-CREATE [co].[Genre] (
+CREATE [dbo].[Genre] (
   [Nom] nvarchar(100) PRIMARY KEY
 );
 
-CREATE [co].[OeuvreActeur] (
+CREATE [dbo].[OeuvreActeur] (
   [OeuvreTitre]   nvarchar(200) NOT NULL,
   [ActeurNom]  nvarchar(200) NOT NULL,
   CONSTRAINT  [PK_OeuvreActeur] PRIMARY KEY ([OeuvreTitre], [ActeurNom]),
@@ -94,7 +77,7 @@ CREATE [co].[OeuvreActeur] (
   REFERENCES  [co].[Acteur] ([ActeurNom])
 );
 
-CREATE [co].[OeuvreDirecteur] (
+CREATE [dbo].[OeuvreDirecteur] (
   [OeuvreTitre]   nvarchar(200) NOT NULL,
   [DirecteurNom]  nvarchar(200) NOT NULL,
   CONSTRAINT  [PK_OeuvreDirecteurr] PRIMARY KEY ([OeuvreTitre], [DirecteurNom]),
@@ -104,7 +87,7 @@ CREATE [co].[OeuvreDirecteur] (
   REFERENCES  [co].[Directeur] ([DirecteurNom])
 );
 
-CREATE [co].[OeuvreGenre] (
+CREATE [dbo].[OeuvreGenre] (
   [OeuvreTitre]   nvarchar(200) NOT NULL,
   [GenreNom]  nvarchar(200) NOT NULL,
   CONSTRAINT  [PK_OeuvreGenre] PRIMARY KEY ([OeuvreTitre], [GenreNom]),
@@ -114,7 +97,7 @@ CREATE [co].[OeuvreGenre] (
   REFERENCES  [co].[Genre] ([GenreNom])
 );
 
-CREATE TABLE [p].[Seance] (
+CREATE TABLE [dbo].[Seance] (
   [SeanceID]    int         IDENTITY(1,1) PRIMARY KEY,
   [Titre]       nvarchar(20) NOT NULL,
   [HeureDebut]  datetime    NOT NULL,
