@@ -28,9 +28,9 @@ CREATE TABLE [dbo].[Cinema] (
   [ResponsableID]   int NOT NULL,
   [Programmateur] nvarchar(100) NULL,
   CONSTRAINT FK_Cinema_Responsable FOREIGN KEY  ([ResponsableID])
-  REFERENCES [c].[Responsable] ([ResponsableID]),
+  REFERENCES [dbo].[Responsable] ([ResponsableID]),
   CONSTRAINT FK_Cinema_User FOREIGN KEY ([Programmateur])
-  REFERENCES [u].[User] ([Login])
+  REFERENCES [dbo].[User] ([Login])
 );
 
 CREATE TABLE [dbo].[Salle] (
@@ -72,9 +72,9 @@ CREATE [dbo].[ContenuActeur] (
   [ActeurNom]  nvarchar(200) NOT NULL,
   CONSTRAINT  [PK_ContenuActeur] PRIMARY KEY ([ContenuTitre], [ActeurNom]),
   CONSTRAINT  [FK_ContenuActeur_Contenu] FOREIGN KEY ([ContenuTitre])
-  REFERENCES  [co].[Contenu] ([Titre]),
+  REFERENCES  [dbo].[Contenu] ([ContenuTitre]),
   CONSTRAINT  [FK_ContenuActeur_Acteur] FOREIGN KEY ([ActeurNom])
-  REFERENCES  [co].[Acteur] ([Nom])
+  REFERENCES  [dbo].[Acteur] ([Nom])
 );
 
 CREATE [dbo].[ContenuDirecteur] (
@@ -82,9 +82,9 @@ CREATE [dbo].[ContenuDirecteur] (
   [DirecteurNom]  nvarchar(200) NOT NULL,
   CONSTRAINT  [PK_ContenuDirecteurr] PRIMARY KEY ([ContenuTitre], [DirecteurNom]),
   CONSTRAINT  [FK_ContenuDirecteur_Contenu] FOREIGN KEY ([ContenuTitre])
-  REFERENCES  [co].[Contenu] ([Titre]),
+  REFERENCES  [dbo].[Contenu] ([ContenuTitre]),
   CONSTRAINT  [FK_ContenuDirecteur_Directeur] FOREIGN KEY ([DirecteurNom])
-  REFERENCES  [co].[Directeur] ([Nom])
+  REFERENCES  [dbo].[Directeur] ([Nom])
 );
 
 CREATE [dbo].[ContenuGenre] (
@@ -92,9 +92,9 @@ CREATE [dbo].[ContenuGenre] (
   [GenreNom]  nvarchar(200) NOT NULL,
   CONSTRAINT  [PK_ContenuGenre] PRIMARY KEY ([ContenuTitre], [GenreNom]),
   CONSTRAINT  [FK_ContenuGenre_Contenu] FOREIGN KEY ([ContenuTitre])
-  REFERENCES  [co].[Contenu] ([Titre]),
+  REFERENCES  [dbo].[Contenu] ([ContenuTitre]),
   CONSTRAINT  [FK_ContenuGenre_Genre] FOREIGN KEY ([GenreNom])
-  REFERENCES  [co].[Genre] ([Nom])
+  REFERENCES  [dbo].[Genre] ([Nom])
 );
 
 CREATE TABLE [dbo].[Seance] (
@@ -103,10 +103,10 @@ CREATE TABLE [dbo].[Seance] (
   [HeureDebut]  datetime    NOT NULL,
   [HeureFin]    datetime    NOT NULL,
   [SalleID]     int         NOT NULL,
-  [ContenuID]   int         NULL,
+  [ContenuTitre]   int         NULL,
   CONSTRAINT  FK_Seance_Salle FOREIGN KEY (SalleID)
-  REFERENCES  [CinemaManagement].[Salle] (SalleID),
-  CONSTRAINT  FK_Seance_Contenu FOREIGN KEY (ContenuID)
-  REFERENCES  [ContentManagement].[Contenu] (ContenuID)
+  REFERENCES  [dbo].[Salle] (SalleID),
+  CONSTRAINT  FK_Seance_Contenu FOREIGN KEY (ContenuTitre)
+  REFERENCES  [dbo].[Contenu] (ContenuTitre)
 );
 
