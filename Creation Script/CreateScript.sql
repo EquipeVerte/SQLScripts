@@ -74,7 +74,7 @@ CREATE [dbo].[OeuvreActeur] (
   CONSTRAINT  [FK_OeuvreActeur_Oeuvre] FOREIGN KEY ([OeuvreTitre])
   REFERENCES  [co].[Oeuvre] ([Titre]),
   CONSTRAINT  [FK_OeuvreActeur_Acteur] FOREIGN KEY ([ActeurNom])
-  REFERENCES  [co].[Acteur] ([ActeurNom])
+  REFERENCES  [co].[Acteur] ([Nom])
 );
 
 CREATE [dbo].[OeuvreDirecteur] (
@@ -84,7 +84,7 @@ CREATE [dbo].[OeuvreDirecteur] (
   CONSTRAINT  [FK_OeuvreDirecteur_Oeuvre] FOREIGN KEY ([OeuvreTitre])
   REFERENCES  [co].[Oeuvre] ([Titre]),
   CONSTRAINT  [FK_OeuvreDirecteur_Directeur] FOREIGN KEY ([DirecteurNom])
-  REFERENCES  [co].[Directeur] ([DirecteurNom])
+  REFERENCES  [co].[Directeur] ([Nom])
 );
 
 CREATE [dbo].[OeuvreGenre] (
@@ -94,7 +94,7 @@ CREATE [dbo].[OeuvreGenre] (
   CONSTRAINT  [FK_OeuvreGenre_Oeuvre] FOREIGN KEY ([OeuvreTitre])
   REFERENCES  [co].[Oeuvre] ([Titre]),
   CONSTRAINT  [FK_OeuvreGenre_Genre] FOREIGN KEY ([GenreNom])
-  REFERENCES  [co].[Genre] ([GenreNom])
+  REFERENCES  [co].[Genre] ([Nom])
 );
 
 CREATE TABLE [dbo].[Seance] (
