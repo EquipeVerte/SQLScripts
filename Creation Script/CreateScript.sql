@@ -103,7 +103,7 @@ CREATE TABLE [dbo].[Seance] (
   [HeureDebut]  datetime    NOT NULL,
   [HeureFin]    datetime    NOT NULL,
   [SalleID]     int         NOT NULL,
-  [ContenuTitre]   int         NULL,
+  [ContenuTitre]   nvarchar(200)         NULL,
   CONSTRAINT  FK_Seance_Salle FOREIGN KEY (SalleID)
   REFERENCES  [dbo].[Salle] (SalleID),
   CONSTRAINT  FK_Seance_Contenu FOREIGN KEY (ContenuTitre)
