@@ -26,7 +26,7 @@ CREATE TABLE [dbo].[Cinema] (
   [Adresse]         nvarchar(200) NOT NULL,
   [EnExploitation]        bit NOT NULL,
   [ResponsableID]   int NOT NULL,
-  [Programmateur] nvarchar(100) NULL,
+  [Programmateur] nvarchar(20) NULL,
   CONSTRAINT FK_Cinema_Responsable FOREIGN KEY  ([ResponsableID])
   REFERENCES [dbo].[Responsable] ([ResponsableID]),
   CONSTRAINT FK_Cinema_User FOREIGN KEY ([Programmateur])
@@ -90,10 +90,10 @@ CREATE TABLE [dbo].[ContenuDirecteur] (
 
 CREATE TABLE [dbo].[ContenuGenre] (
   [ContenuTitre]   nvarchar(200) NOT NULL,
-  [GenreNom]  nvarchar(200) NOT NULL,
+  [GenreNom]  nvarchar(100) NOT NULL,
   CONSTRAINT  [PK_ContenuGenre] PRIMARY KEY ([ContenuTitre], [GenreNom]),
   CONSTRAINT  [FK_ContenuGenre_Contenu] FOREIGN KEY ([ContenuTitre])
-  REFERENCES  [dbo].[Contenu] ([ContenuTitre]),
+  REFERENCES  [dbo].[Contenu] ([Titre]),
   CONSTRAINT  [FK_ContenuGenre_Genre] FOREIGN KEY ([GenreNom])
   REFERENCES  [dbo].[Genre] ([Nom])
 );
@@ -104,7 +104,7 @@ CREATE TABLE [dbo].[Seance] (
   [HeureDebut]  datetime    NOT NULL,
   [HeureFin]    datetime    NOT NULL,
   [SalleID]     int         NOT NULL,
-  [ContenuTitre]   int         NULL,
+  [ContenuTitre]   nvarchar(200)        NULL,
   CONSTRAINT  FK_Seance_Salle FOREIGN KEY ([SalleID])
   REFERENCES  [dbo].[Salle] (SalleID),
   CONSTRAINT  FK_Seance_Contenu FOREIGN KEY ([ContenuTitre])
