@@ -1,5 +1,5 @@
 --  Script de création de base de données pour le projet de gestion des cinémas.
---  Updated : 26-04-20
+--  Updated : 29-04-20
 
 USE [CinemaProjectDB];
 
@@ -41,7 +41,7 @@ CREATE TABLE [dbo].[Salle] (
   [EnExploitation]  bit NOT NULL,
   [CinemaID]  int NOT NULL,
   CONSTRAINT  FK_Salle_Cinema FOREIGN KEY ([CinemaID])
-  REFERENCES  [c].[Cinema] ([CinemaID])
+  REFERENCES  [dbo].[Cinema] ([CinemaID])
 );
 
 CREATE TABLE [dbo].[Contenu] (
@@ -55,42 +55,43 @@ CREATE TABLE [dbo].[Contenu] (
   [MetaScore]   int
 );
 
-CREATE [dbo].[Acteur] (
-  [Nom] nvarchar(200) PRIMARY KEY
+CREATE TABLE [dbo].[Acteur] (
+  [Nom]   nvarchar(200)  NOT NULL,
+  PRIMARY KEY CLUSTERED ([Nom] ASC)
 );
 
-CREATE [dbo].[Directeur] (
+CREATE TABLE [dbo].[Directeur] (
   [Nom] nvarchar(200) PRIMARY KEY 
 );
 
-CREATE [dbo].[Genre] (
+CREATE TABLE [dbo].[Genre] (
   [Nom] nvarchar(100) PRIMARY KEY
 );
 
-CREATE [dbo].[ContenuActeur] (
+CREATE TABLE [dbo].[ContenuActeur] (
   [ContenuTitre]   nvarchar(200) NOT NULL,
   [ActeurNom]  nvarchar(200) NOT NULL,
-  CONSTRAINT  [PK_ContenuActeur] PRIMARY KEY ([ContenuTitre], [ActeurNom]),
+  CONSTRAINT  [PK_ContenuActeur] PRIMARY KEY ([ContenuTitre,ActeurNom]),
   CONSTRAINT  [FK_ContenuActeur_Contenu] FOREIGN KEY ([ContenuTitre])
-  REFERENCES  [dbo].[Contenu] ([ContenuTitre]),
+  REFERENCES  [dbo].[Contenu] ([Titre]),
   CONSTRAINT  [FK_ContenuActeur_Acteur] FOREIGN KEY ([ActeurNom])
   REFERENCES  [dbo].[Acteur] ([Nom])
 );
 
-CREATE [dbo].[ContenuDirecteur] (
+CREATE TABLE [dbo].[ContenuDirecteur] (
   [ContenuTitre]   nvarchar(200) NOT NULL,
   [DirecteurNom]  nvarchar(200) NOT NULL,
-  CONSTRAINT  [PK_ContenuDirecteurr] PRIMARY KEY ([ContenuTitre], [DirecteurNom]),
+  CONSTRAINT  [PK_ContenuDirecteurr] PRIMARY KEY ([ContenuTitre, DirecteurNom]),
   CONSTRAINT  [FK_ContenuDirecteur_Contenu] FOREIGN KEY ([ContenuTitre])
-  REFERENCES  [dbo].[Contenu] ([ContenuTitre]),
+  REFERENCES  [dbo].[Contenu] ([Titre]),
   CONSTRAINT  [FK_ContenuDirecteur_Directeur] FOREIGN KEY ([DirecteurNom])
   REFERENCES  [dbo].[Directeur] ([Nom])
 );
 
-CREATE [dbo].[ContenuGenre] (
+CREATE TABLE [dbo].[ContenuGenre] (
   [ContenuTitre]   nvarchar(200) NOT NULL,
   [GenreNom]  nvarchar(200) NOT NULL,
-  CONSTRAINT  [PK_ContenuGenre] PRIMARY KEY ([ContenuTitre], [GenreNom]),
+  CONSTRAINT  [PK_ContenuGenre] PRIMARY KEY ([ContenuTitre, GenreNom]),
   CONSTRAINT  [FK_ContenuGenre_Contenu] FOREIGN KEY ([ContenuTitre])
   REFERENCES  [dbo].[Contenu] ([ContenuTitre]),
   CONSTRAINT  [FK_ContenuGenre_Genre] FOREIGN KEY ([GenreNom])
@@ -103,10 +104,10 @@ CREATE TABLE [dbo].[Seance] (
   [HeureDebut]  datetime    NOT NULL,
   [HeureFin]    datetime    NOT NULL,
   [SalleID]     int         NOT NULL,
-  [ContenuTitre]   nvarchar(200)         NULL,
-  CONSTRAINT  FK_Seance_Salle FOREIGN KEY (SalleID)
+  [ContenuTitre]   int         NULL,
+  CONSTRAINT  FK_Seance_Salle FOREIGN KEY ([SalleID])
   REFERENCES  [dbo].[Salle] (SalleID),
-  CONSTRAINT  FK_Seance_Contenu FOREIGN KEY (ContenuTitre)
-  REFERENCES  [dbo].[Contenu] (ContenuTitre)
+  CONSTRAINT  FK_Seance_Contenu FOREIGN KEY ([ContenuTitre])
+  REFERENCES  [dbo].[Contenu] ([Titre])
 );
 
