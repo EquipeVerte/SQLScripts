@@ -1,7 +1,7 @@
 --  Script de création de base de données pour le projet de gestion des cinémas.
 --  Updated : 29-04-20
 
-USE [CinemaProjectDB];
+USE [CineDB];
 
 
 CREATE TABLE [dbo].[User] (
@@ -71,7 +71,7 @@ CREATE TABLE [dbo].[Genre] (
 CREATE TABLE [dbo].[ContenuActeur] (
   [ContenuTitre]   nvarchar(200) NOT NULL,
   [ActeurNom]  nvarchar(200) NOT NULL,
-  CONSTRAINT  [PK_ContenuActeur] PRIMARY KEY ([ContenuTitre,ActeurNom]),
+  CONSTRAINT  [PK_ContenuActeur] PRIMARY KEY ([ContenuTitre], [ActeurNom]),
   CONSTRAINT  [FK_ContenuActeur_Contenu] FOREIGN KEY ([ContenuTitre])
   REFERENCES  [dbo].[Contenu] ([Titre]),
   CONSTRAINT  [FK_ContenuActeur_Acteur] FOREIGN KEY ([ActeurNom])
@@ -81,7 +81,7 @@ CREATE TABLE [dbo].[ContenuActeur] (
 CREATE TABLE [dbo].[ContenuDirecteur] (
   [ContenuTitre]   nvarchar(200) NOT NULL,
   [DirecteurNom]  nvarchar(200) NOT NULL,
-  CONSTRAINT  [PK_ContenuDirecteurr] PRIMARY KEY ([ContenuTitre, DirecteurNom]),
+  CONSTRAINT  [PK_ContenuDirecteurr] PRIMARY KEY ([ContenuTitre], [DirecteurNom]),
   CONSTRAINT  [FK_ContenuDirecteur_Contenu] FOREIGN KEY ([ContenuTitre])
   REFERENCES  [dbo].[Contenu] ([Titre]),
   CONSTRAINT  [FK_ContenuDirecteur_Directeur] FOREIGN KEY ([DirecteurNom])
@@ -91,7 +91,7 @@ CREATE TABLE [dbo].[ContenuDirecteur] (
 CREATE TABLE [dbo].[ContenuGenre] (
   [ContenuTitre]   nvarchar(200) NOT NULL,
   [GenreNom]  nvarchar(200) NOT NULL,
-  CONSTRAINT  [PK_ContenuGenre] PRIMARY KEY ([ContenuTitre, GenreNom]),
+  CONSTRAINT  [PK_ContenuGenre] PRIMARY KEY ([ContenuTitre], [GenreNom]),
   CONSTRAINT  [FK_ContenuGenre_Contenu] FOREIGN KEY ([ContenuTitre])
   REFERENCES  [dbo].[Contenu] ([ContenuTitre]),
   CONSTRAINT  [FK_ContenuGenre_Genre] FOREIGN KEY ([GenreNom])
@@ -110,4 +110,3 @@ CREATE TABLE [dbo].[Seance] (
   CONSTRAINT  FK_Seance_Contenu FOREIGN KEY ([ContenuTitre])
   REFERENCES  [dbo].[Contenu] ([Titre])
 );
-
