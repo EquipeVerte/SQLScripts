@@ -27,7 +27,7 @@ CREATE TABLE [dbo].[Cinema] (
   [Adresse]         nvarchar(200) NOT NULL,
   [EnExploitation]        bit NOT NULL,
   [ResponsableID]   int NOT NULL,
-  [Programmateur] nvarchar(20) NULL,
+  [Programmateur] nvarchar(200) NULL,
   CONSTRAINT FK_Cinema_Responsable FOREIGN KEY  ([ResponsableID])
   REFERENCES [dbo].[Responsable] ([ResponsableID]),
   CONSTRAINT FK_Cinema_User FOREIGN KEY ([Programmateur])
