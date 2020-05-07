@@ -5,7 +5,8 @@ USE [CineDB];
 
 
 CREATE TABLE [dbo].[User] (
-  [Login]           nvarchar(20) PRIMARY KEY,
+  [Login]           nvarchar(200) PRIMARY KEY,
+  [MotDePasse]      nvarchar(200) NOT NULL,
   [PasswordHash]    binary(24) NOT NULL,
   [Salt]            binary(24) NOT NULL,
   [HashIterations]  int NOT NULL,
@@ -65,7 +66,7 @@ CREATE TABLE [dbo].[Directeur] (
 );
 
 CREATE TABLE [dbo].[Genre] (
-  [Nom] nvarchar(100) PRIMARY KEY
+  [Nom] nvarchar(200) PRIMARY KEY
 );
 
 CREATE TABLE [dbo].[ContenuActeur] (
@@ -90,7 +91,7 @@ CREATE TABLE [dbo].[ContenuDirecteur] (
 
 CREATE TABLE [dbo].[ContenuGenre] (
   [ContenuTitre]   nvarchar(200) NOT NULL,
-  [GenreNom]  nvarchar(100) NOT NULL,
+  [GenreNom]  nvarchar(200) NOT NULL,
   CONSTRAINT  [PK_ContenuGenre] PRIMARY KEY ([ContenuTitre], [GenreNom]),
   CONSTRAINT  [FK_ContenuGenre_Contenu] FOREIGN KEY ([ContenuTitre])
   REFERENCES  [dbo].[Contenu] ([Titre]),
@@ -100,7 +101,7 @@ CREATE TABLE [dbo].[ContenuGenre] (
 
 CREATE TABLE [dbo].[Seance] (
   [SeanceID]    int         IDENTITY(1,1) PRIMARY KEY,
-  [Titre]       nvarchar(20) NOT NULL,
+  [Titre]       nvarchar(200) NOT NULL,
   [HeureDebut]  datetime    NOT NULL,
   [HeureFin]    datetime    NOT NULL,
   [SalleID]     int         NOT NULL,
