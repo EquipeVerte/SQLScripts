@@ -1,8 +1,8 @@
-/* type est un mot réservé? */
-
-ALTER TABLE [DBO].[Contenu]
+ALTER TABLE [dbo].[Contenu]
 	ADD typage VARCHAR(100) NULL;
 
+UPDATE [dbo].[Contenu]
+	SET typage = 'standard'
 
 CREATE TABLE [dbo].[ContenuPromo] (
   [Titre]   nvarchar(200)  NOT NULL PRIMARY KEY,
@@ -20,6 +20,9 @@ CREATE TABLE [dbo].[SeanceContenu] (
   CONSTRAINT  [FK_ContenuSeance_Seance] FOREIGN KEY ([SeanceID])
   REFERENCES  [dbo].[Seance] ([SeanceID])
 );
+							       
+INSERT INTO SeanceContenu (ContenuTitre, SeanceID)
+	SELECT ContenuTitre, SeanceID FROM Seance;							       
 
 CREATE TABLE [dbo].[SeancePromo] (
   [PromoTitre]   nvarchar(200) NOT NULL,
