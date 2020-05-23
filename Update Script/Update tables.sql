@@ -21,8 +21,8 @@ CREATE TABLE [dbo].[SeanceContenu] (
   REFERENCES  [dbo].[Seance] ([SeanceID])
 );
 							       
-INSERT INTO SeanceContenu (ContenuTitre, SeanceID)
-	SELECT ContenuTitre, SeanceID FROM Seance;							       
+INSERT INTO SeanceContenu (ContenuTitre, SeanceID, indexOrdre, estPrincipal)
+	SELECT ContenuTitre, SeanceID, '1', 1 FROM Seance;							       
 
 CREATE TABLE [dbo].[SeancePromo] (
   [PromoTitre]   nvarchar(200) NOT NULL,
