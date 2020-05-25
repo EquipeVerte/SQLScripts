@@ -22,7 +22,11 @@ CREATE TABLE [dbo].[SeanceContenu] (
 );
 							       
 INSERT INTO SeanceContenu (ContenuTitre, SeanceID, indexOrdre, estPrincipal)
-	SELECT ContenuTitre, SeanceID, '1', 1 FROM Seance;							       
+	SELECT ContenuTitre, SeanceID, 1, 1 FROM Seance WHERE ContenuTitre IS NOT NULL;		
+							    
+-- Supprimer la colonne qui n'est plus utilisée.
+ALTER TABLE [Seance]
+  DROP COLUMN [ContenuTitre];
 
 CREATE TABLE [dbo].[SeancePromo] (
   [PromoTitre]   nvarchar(200) NOT NULL,
