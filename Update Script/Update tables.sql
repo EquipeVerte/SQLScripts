@@ -26,6 +26,7 @@ INSERT INTO SeanceContenu (ContenuTitre, SeanceID, indexOrdre, estPrincipal)
 							    
 -- Supprimer la colonne qui n'est plus utilisée.
 ALTER TABLE [Seance]
+  DROP CONSTRAINT FK_Seance_Contenu
   DROP COLUMN [ContenuTitre];
 
 CREATE TABLE [dbo].[SeancePromo] (
